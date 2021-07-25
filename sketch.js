@@ -5,7 +5,6 @@ var tower, ground, canon, boat, canonBall;
 var canonAngle = -90;
 var balls = [];
 var boats = [];
-var boatAnim = [];
 
 function preload() {
     bg = loadImage("assets/background.gif");
@@ -27,7 +26,6 @@ function draw() {
     background(bg);
     Engine.update(engine);
     tower.display();
-    destroyBoth();
 
     showBoat();
     for (i = 0; i < boats.length; i++) {
@@ -41,9 +39,6 @@ function draw() {
 
     canon.display();
 }
-
-
-
 
 
 function keyPressed() {
@@ -80,37 +75,3 @@ function showBall(ball, index) {
     }
 }
 
-function destroyBoth() {
-    for (i = 0; i < balls.length; i++) {
-        for (a = 0; a < boats.length; a++) {
-            var collision = Matter.SAT.collides(balls[i].body, boats[a].body);
-            if (collision.collided) {
-                console.log("win 1")
-                Matter.World.remove(world, boats[a]);
-
-                boats.splice(a, 1);
-
-                Matter.World.remove(world, balls[i]);
-                // balls[i].destroy();
-                balls.splice(i, 1);
-            }
-        }
-    }
-}
-
-function gameOver() {
-    swal({
-            title: "GAME OVER",
-            text: "YOU LOSE",
-            imageUrl: "https://cdn3.vectorstock.com/i/1000x1000/58/02/cartoon-pirate-captain-holding-a-treasure-map-vector-23875802.jpg",
-            imageSize: "150*150",
-            confirmButtonText: "play again",
-
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                location.reload();
-            }
-        }
-    )
-}
