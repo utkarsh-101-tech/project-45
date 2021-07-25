@@ -27,8 +27,6 @@ class Boat {
     move() {
         if (this.body.position.x > 300) {
             Matter.Body.translate(this.body, { x: -1, y: 0 });
-        } else {
-            gameOver();
-        }
+        } 
     }
 }
